@@ -5,10 +5,10 @@ FieldRow.propTypes = {
     children: PropTypes.arrayOf(PropTypes.element).isRequired
 };
 
-export default function FieldRow(children) {
+export default function FieldRow(props) {
     return (
         <tr className='field__row'>
-            {children}
+            {props.children}
         </tr>
     );
 };

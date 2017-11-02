@@ -1,0 +1,21 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+Button.propeTypes = {
+    className: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+};
+
+export default function Button(props) {
+    return (
+        <button
+            className={`field__button ${props.className}`}
+            onClick={props.onClick}
+            style={props.style}
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+        />
+    );
+}

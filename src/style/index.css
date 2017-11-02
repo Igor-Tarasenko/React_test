@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+#root {
+  margin: 100px;
+}
+.field {
+  position: relative;
+  display: inline-block;
+}
+.field__table {
+  border: solid 1px #48a9e5;
+}
+.field__cell {
+  width: 48px;
+  height: 48px;
+  background-color: #48a9e5;
+  padding: 0;
+  min-width: 48px;
+}
+.field__button {
+  position: absolute;
+  cursor: pointer;
+  width: 48px;
+  height: 48px;
+  font-family: FontAwesome;
+  color: #fff;
+  border: 0;
+  transition: background-color 2s;
+}
+.field__button_remove {
+  background-color: #b10000;
+}
+.field__button_remove:hover {
+   background-color: #c74b48;
+}
+
+.field__button_remove::before {
+   content: '\f068';
+}
+.field__button_hidden {
+   visibility: hidden;
+}
+.field__button_add {
+  background-color: #f2a400;
+}
+.field__button_add::before {
+   content: '\f067';
+}
+.field__button_add:hover {
+   background-color: #f4be52;
+}
+.field__button_remove-row {
+     right: 100%;
+     margin: 1px 2px 0 0;
+}
+.field__button_remove-col {
+     bottom: 100%;
+     margin: 0 0 2px 1px;
+}
+.field__button_add-row {
+     top: 100%;
+     margin: 2px 0 0 3px;
+}
+.field__button_add-col {
+     left: 100%;
+     margin: 3px 0 0 2px;
+}

@@ -13,7 +13,6 @@ export default class Table extends Component {
         super(props);
         this.hideTimerId = 0;
         this.cellTarget = null;
-        // this.
         this.state = {
             fieldTable: this.props.tableData,
             rowRemoveButton: {
@@ -133,7 +132,7 @@ export default class Table extends Component {
         return {
             ...specificProps,
             onMouseLeave: this.hideRemoveButtons,
-            className: 'field__button_remove-row',
+            className: 'table__button_remove-row',
             onClick: this.removeRow,
             onMouseEnter: this.showRowRemoveButton,
             ...this.state.rowRemoveButton,
@@ -144,7 +143,7 @@ export default class Table extends Component {
         return {
             ...specificProps,
             onMouseLeave: this.hideRemoveButtons,
-            className: 'field__button_remove-col',
+            className: 'table__button_remove-col',
             onClick: this.removeCol,
             onMouseEnter: this.showColRemoveButton,
             ...this.state.colRemoveButton,
@@ -158,12 +157,12 @@ export default class Table extends Component {
         });
 
         return (
-            <div className="field">
+            <div className="table">
                 <Button
-                    className ="field__button_add field__button_add-row"
+                    className ="table__button_add table__button_add-row"
                     onClick={this.addRow}/>
                 <Button
-                    className ="field__button_add field__button_add-col"
+                    className ="table__button_add table__button_add-col"
                     onClick={this.addCol}/>
                 <RemoveButton {...this.getRowRemoveButtonProps()}/>
                 <RemoveButton {...this.getColRemoveButtonProps()}/>

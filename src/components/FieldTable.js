@@ -11,7 +11,7 @@ FieldTable.propTypes = {
 export default function FieldTable(props) {
     return (
         <table
-            className = "field__table"
+            className = "table__table"
             onMouseLeave = {props.onMouseLeave}
             onMouseOver = {props.onMouseOver}
         >

@@ -11,7 +11,7 @@ Button.propeTypes = {
 export default function Button(props) {
     return (
         <button
-            className={`field__button ${props.className}`}
+            className={`table__button ${props.className}`}
             onClick={props.onClick}
             style={props.style}
             onMouseEnter={props.onMouseEnter}

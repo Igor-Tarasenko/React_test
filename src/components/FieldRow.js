@@ -7,7 +7,7 @@ FieldRow.propTypes = {
 
 export default function FieldRow(props) {
     return (
-        <tr className='field__row'>
+        <tr className='table__row'>
             {props.children}
         </tr>
     );

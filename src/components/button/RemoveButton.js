@@ -22,8 +22,8 @@ export default function RemoveButton(
 {
     return (
         <Button
-            className = {`field__button_remove ${className}
-                ${classNames({'field__button_hidden': isHidden})}`}
+            className = {`table__button_remove ${className}
+                ${classNames({'table__button_hidden': isHidden})}`}
             onClick={onClick}
             onMouseLeave={onMouseLeave}
             onMouseEnter={onMouseEnter}

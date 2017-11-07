@@ -8,16 +8,17 @@ import update from 'react-addons-update';
 
 const timer = 2000;
 
-export default class Field extends Component {
+export default class FirstTable extends Component {
     constructor(props) {
         super(props);
         this.hideTimerId = 0;
+        this.cellTarget = null;
         this.state = {
             fieldTable: [
-                ['a1', 'a2', 'a3', 'a4'],
-                ['b1', 'b2', 'b3', 'b4'],
-                ['c1', 'c2', 'c3', 'c4'],
-                ['d1', 'd2', 'd3', 'd4'],
+                ['', '', '', ''],
+                ['', '', '', ''],
+                ['', '', '', ''],
+                ['', '', '', ''],
             ],
             rowRemoveButton: {
                 rowIndex: 0,
@@ -39,6 +40,7 @@ export default class Field extends Component {
     moveRemoveButtons = event => {
         if (event.target instanceof HTMLTableCellElement) {
             const cell = event.target;
+            this.catchCellRemoveTarget(cell)
             this.setState({
                 rowRemoveButton: {
                     style: {top: cell.offsetTop},
@@ -81,24 +83,25 @@ export default class Field extends Component {
     addCol = () => {
         this.setState(({fieldTable: prevFieldTable}) => {
             const fieldTable = prevFieldTable.map(row => {
-                row = [...row, ...[Date.now()]];
+                row = [...row, ...[prevFieldTable]];
                 return row;
             });
             return {fieldTable};
         });
     };
 
+    catchCellRemoveTarget = (targetCell) =>{
+        this.cellTarget = targetCell;
+    };
+
     removeRow = () => {
         if (this.getRowCount() > 1) {
+            this.cellTarget.parentElement.remove();
             this.setState((
-                {fieldTable: prevFieldTable,
-                    rowRemoveButton: prevRowRemoveButton}) => {
-                const fieldTable
-                    = update(prevFieldTable,
-                    {$splice: [[prevRowRemoveButton.rowIndex, 1]]});
+                {rowRemoveButton: prevRowRemoveButton}) => {
                 const rowRemoveButton
                     = update(prevRowRemoveButton, {isHidden: {$set: true}});
-                return {fieldTable, rowRemoveButton};
+                return {rowRemoveButton};
             });
         }
     };
@@ -119,12 +122,10 @@ export default class Field extends Component {
 
     hideRemoveButtons = () => {
         this.hideTimerId = setTimeout(() => {
-            this.setState((
-                {rowRemoveButton: prevRowRemoveButton, colRemoveButton: prevColRemoveButton}) => {
-                const colRemoveButton = update(prevColRemoveButton, {isHidden: {$set: true}});
-                const rowRemoveButton = update(prevRowRemoveButton, {isHidden: {$set: true}});
-                return {rowRemoveButton, colRemoveButton};
-            });
+            this.setState(({ rowRemoveButton, colRemoveButton }) => ({
+                rowRemoveButton:  update(rowRemoveButton, {isHidden: {$set: true}}),
+                colRemoveButton:  update(colRemoveButton, {isHidden: {$set: true}})
+            }));
         }, timer);
     };
 
@@ -132,28 +133,25 @@ export default class Field extends Component {
 
     getColCount = () => this.state.fieldTable[0].length;
 
-    getRowRemoveButtonProps = () => {
-        return this.getRemoveButtonProps({
+    getRowRemoveButtonProps = (specificProps) => {
+        return {
+            ...specificProps,
+            onMouseLeave: this.hideRemoveButtons,
             className: 'field__button_remove-row',
             onClick: this.removeRow,
             onMouseEnter: this.showRowRemoveButton,
             ...this.state.rowRemoveButton,
-        });
+        };
     };
 
-    getColRemoveButtonProps = () => {
-        return this.getRemoveButtonProps({
+    getColRemoveButtonProps = (specificProps) => {
+        return {
+            ...specificProps,
+            onMouseLeave: this.hideRemoveButtons,
             className: 'field__button_remove-col',
             onClick: this.removeCol,
             onMouseEnter: this.showColRemoveButton,
             ...this.state.colRemoveButton,
-        });
-    };
-
-    getRemoveButtonProps = (specificProps) => {
-        return {
-            ...specificProps,
-            onMouseLeave: this.hideRemoveButtons,
         };
     };
 

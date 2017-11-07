@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Field from './components/Field';
-import './style/index.css';
+import FirstTable from './components/FirstTable';
+import './style/firstTable.css';
 
 ReactDOM.render(
-	<Field />,
+	<FirstTable />,
 	document.getElementById('root')
 );
 

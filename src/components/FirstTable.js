@@ -13,13 +13,19 @@ export default class FirstTable extends Component {
         super(props);
         this.hideTimerId = 0;
         this.cellTarget = null;
+        this.firstStep = [
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', ''],
+            ['', '', '', '']
+        ];
         this.state = {
-            fieldTable: [
-                ['', '', '', ''],
-                ['', '', '', ''],
-                ['', '', '', ''],
-                ['', '', '', ''],
-            ],
+            // fieldTable: [
+            //     ['', '', '', ''],
+            //     ['', '', '', ''],
+            //     ['', '', '', ''],
+            //     ['', '', '', '']
+            // ],
             rowRemoveButton: {
                 rowIndex: 0,
                 isHidden: true,
@@ -129,9 +135,9 @@ export default class FirstTable extends Component {
         }, timer);
     };
 
-    getRowCount = () => this.state.fieldTable.length;
+    getRowCount = () => this.state.props.firstStep.length;
 
-    getColCount = () => this.state.fieldTable[0].length;
+    getColCount = () => this.state.props.firstStep[0].length;
 
     getRowRemoveButtonProps = (specificProps) => {
         return {
@@ -156,7 +162,7 @@ export default class FirstTable extends Component {
     };
 
     render() {
-        const rowList = this.state.fieldTable.map((row, index) => {
+        const rowList = this.props.firstStep.map((row, index) => {
             const cellList = row.map((item, index) => <TableCell key={index}>{item}</TableCell>);
             return <FieldRow key={index}>{cellList}</FieldRow>;
         });

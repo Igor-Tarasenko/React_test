@@ -12,7 +12,6 @@ export default class Table extends Component {
     constructor(props) {
         super(props);
         this.hideTimerId = 0;
-        this.cellTarget = null;
         this.state = {
             fieldTable: this.props.tableData,
             rowRemoveButton: {
@@ -35,7 +34,6 @@ export default class Table extends Component {
     moveRemoveButtons = event => {
         if (event.target instanceof HTMLTableCellElement) {
             const cell = event.target;
-            this.catchCellRemoveTarget(cell)
             this.setState({
                 rowRemoveButton: {
                     style: {top: cell.offsetTop},
@@ -85,18 +83,17 @@ export default class Table extends Component {
         });
     };
 
-    catchCellRemoveTarget = (targetCell) =>{
-        this.cellTarget = targetCell;
-    };
-
     removeRow = () => {
         if (this.getRowCount() > 1) {
-            this.cellTarget.parentElement.remove();
             this.setState((
-                {rowRemoveButton: prevRowRemoveButton}) => {
+                {fieldTable: prevFieldTable,
+                    rowRemoveButton: prevRowRemoveButton}) => {
+                const fieldTable
+                    = update(prevFieldTable,
+                    {$splice: [[prevRowRemoveButton.rowIndex, 1]]});
                 const rowRemoveButton
                     = update(prevRowRemoveButton, {isHidden: {$set: true}});
-                return {rowRemoveButton};
+                return {fieldTable, rowRemoveButton};
             });
         }
     };

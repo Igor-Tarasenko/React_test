@@ -18,14 +18,14 @@ export default class Table extends Component {
                 rowIndex: 0,
                 isHidden: true,
                 style: {
-                    top: 0,
+                    top: -40,
                 },
             },
             colRemoveButton: {
                 colIndex: 0,
                 isHidden: true,
                 style: {
-                    left: 0,
+                    left: -40,
                 },
             },
         };
@@ -76,7 +76,7 @@ export default class Table extends Component {
     addCol = () => {
         this.setState(({fieldTable: prevFieldTable}) => {
             const fieldTable = prevFieldTable.map(row => {
-                row = [...row, ...[prevFieldTable]];
+                row = [...row, [...row[0]]];
                 return row;
             });
             return {fieldTable};

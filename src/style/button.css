@@ -10,7 +10,9 @@
     transition: background-color 2s;
 }
 .table__button_remove {
+    opacity: 1;
     background-color: #b10000;
+    transition: .3s;
 }
 .table__button_remove:hover {
     background-color: #c74b48;
@@ -21,6 +23,7 @@
 }
 .table__button_hidden {
     visibility: hidden;
+    opacity: 0;
 }
 .table__button_add {
     background-color: #f2a400;

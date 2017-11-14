@@ -10,12 +10,15 @@
     transition: background-color 2s;
 }
 .table__button_remove {
+    position: absolute;
     opacity: 1;
     background-color: #b10000;
     transition: .3s;
+    z-index: 0;
 }
 .table__button_remove:hover {
     background-color: #c74b48;
+    z-index: 5
 }
 
 .table__button_remove::before {

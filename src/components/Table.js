@@ -13,19 +13,20 @@ export default class Table extends Component {
         super(props);
         this.hideTimerId = 0;
         this.state = {
-            fieldTable: this.props.tableData,
+            fieldTable: this.props.row,
             rowRemoveButton: {
                 rowIndex: 0,
                 isHidden: true,
                 style: {
-                    top: -40,
+                    top: 0
                 },
             },
             colRemoveButton: {
                 colIndex: 0,
                 isHidden: true,
                 style: {
-                    left: -40,
+                    left: 0,
+                    top: -50
                 },
             },
         };
@@ -36,12 +37,14 @@ export default class Table extends Component {
             const cell = event.target;
             this.setState({
                 rowRemoveButton: {
-                    style: {top: cell.offsetTop},
+                    style: {top: cell.offsetTop,
+                            left: -51},
                     rowIndex: cell.parentElement.rowIndex,
                     isHidden: this.getRowCount() <= 1,
                 },
                 colRemoveButton: {
-                    style: {left: cell.offsetLeft},
+                    style: {left: cell.offsetLeft,
+                            top: -50},
                     colIndex: cell.cellIndex,
                     isHidden: this.getColCount() <= 1,
                 },
@@ -52,7 +55,8 @@ export default class Table extends Component {
     showRowRemoveButton = () => {
         clearTimeout(this.hideTimerId);
         this.setState(({rowRemoveButton: prevColRemoveButton}) => {
-            const colRemoveButton = update(prevColRemoveButton, {isHidden: {$set: true}});
+            const colRemoveButton = update(prevColRemoveButton, {isHidden: {$set: true}},
+                {style: {top: -51}});
             return {colRemoveButton};
         });
     };
@@ -60,7 +64,8 @@ export default class Table extends Component {
     showColRemoveButton = () => {
         clearTimeout(this.hideTimerId);
         this.setState(({colRemoveButton: prevRowRemoveButton}) => {
-            const rowRemoveButton = update(prevRowRemoveButton, {isHidden: {$set: true}});
+            const rowRemoveButton = update(prevRowRemoveButton, {isHidden: {$set: true}},
+                {style: {top: -51}});
             return {rowRemoveButton};
         });
     };
@@ -115,8 +120,10 @@ export default class Table extends Component {
     hideRemoveButtons = () => {
         this.hideTimerId = setTimeout(() => {
             this.setState(({ rowRemoveButton, colRemoveButton }) => ({
-                rowRemoveButton:  update(rowRemoveButton, {isHidden: {$set: true}}),
-                colRemoveButton:  update(colRemoveButton, {isHidden: {$set: true}})
+                rowRemoveButton:  update(rowRemoveButton, {isHidden: {$set: true}},
+                    {style: {left: -51}}),
+                colRemoveButton:  update(colRemoveButton, {isHidden: {$set: true}},
+                    {style: {top: -51}})
             }));
         }, timer);
     };
@@ -132,7 +139,7 @@ export default class Table extends Component {
             className: 'table__button_remove-row',
             onClick: this.removeRow,
             onMouseEnter: this.showRowRemoveButton,
-            ...this.state.rowRemoveButton,
+            ...this.state.rowRemoveButton
         };
     };
 
@@ -143,7 +150,7 @@ export default class Table extends Component {
             className: 'table__button_remove-col',
             onClick: this.removeCol,
             onMouseEnter: this.showColRemoveButton,
-            ...this.state.colRemoveButton,
+            ...this.state.colRemoveButton
         };
     };
 

@@ -11,7 +11,7 @@ const initialData = [
 ];
 
 ReactDOM.render(
-	<Table  tableData={initialData}/>,
+	<Table  row={initialData}/>,
 	document.getElementById('root')
 );
 
